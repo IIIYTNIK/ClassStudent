@@ -3,17 +3,17 @@
 using namespace std;
 
 
-//конструктор по умолчанию
+/// Конструктор по умолчанию. Инициализирует поля класса значениями по умолчанию.
 Students::Students() {
-	name = "Noname";
-	id_number = 1;
-	age = 1;
-	grade = Curs::first;
-};
+	name = "Noname"; // Устанавливаем имя по умолчанию
+	id_number = 1;    // Устанавливаем номер студенческого билета по умолчанию
+	age = 1;         // Устанавливаем возраст по умолчанию
+	grade = Curs::first; // Устанавливаем курс по умолчанию
+}
 
- //конструктор с параметрами
-Students::Students(const string &name, int id_number, int age, Curs grade){
-	//Установка занчений пол умолчанию
+/// Конструктор с параметрами. Инициализирует поля класса значениями, переданными в качестве аргументов.
+Students::Students(const string& name, int id_number, int age, Curs grade) {
+	// Используем сеттеры для установки значений, чтобы обеспечить валидацию данных.
 	set_name(name);
 	set_id_number(id_number);
 	set_age(age);
@@ -54,29 +54,29 @@ void Students::set_grade(Curs a) { this->grade = a; }
 ///метод возвращает информацию о всех полях класса в строком типе
 string Students::to_string() const { return ("Name: " + name + ", ID: " + std::to_string(id_number) + ", Age: " + std::to_string(age) + ", Grade: " + std::to_string(static_cast<int>(grade)) + "\n"); }
 
-///функция для записив файл
+/// Функция для записи информации о студенте в файл.
 void to_file(Students a, string filename) {
-	ofstream out;
-	out.open(filename);
-	if (out.is_open()) // окрываем файл для чтения
-	{
+	ofstream out; // Создаем объект выходного потока для записи в файл.
+	out.open(filename); // Открываем файл для записи.
+	if (out.is_open()) { // Проверяем, успешно ли открыт файл.
+		// Записываем данные студента в файл, разделяя поля пробелами.
 		out << a.get_name() << " " << a.get_id_number() << " " << a.get_age() << " " << a.get_grade();
 	}
-	out.close();
+	out.close(); // Закрываем файл.
 }
 
-//функция для записи объекта из файла
+
+///Функция для чтения информации о студенте из файла и заполнения объекта.
 void out_file(Students &a, string filename) {
-	string arrs[4];
-	ifstream in(filename); // окрываем файл для чтения
-	if (in.is_open())
-	{
-		string name, id_str, age_str, grade_str; //создаём переменные в которые будет производиться запись
-		in >> name >> id_str >> age_str >> grade_str; //записываем данные в переменные
+	ifstream in(filename); // Создаем объект входного потока для чтения из файла.
+	if (in.is_open()) { // Проверяем, успешно ли открыт файл.
+		string name, id_str, age_str, grade_str; // Создаем временные переменные для хранения данных из файла.
+		in >> name >> id_str >> age_str >> grade_str; // Считываем данные из файла в временные переменные.
+		// Устанавливаем значения полей объекта студента, используя сеттеры.
 		a.set_name(name);
-		a.set_id_number(stoi(id_str));
-		a.set_age(stoi(age_str));
-		a.set_grade(static_cast<Curs>(stoi(grade_str)));
+		a.set_id_number(stoi(id_str)); // Преобразуем строку в целое число.
+		a.set_age(stoi(age_str));     // Преобразуем строку в целое число.
+		a.set_grade(static_cast<Curs>(stoi(grade_str))); // Преобразуем строку в целое число, затем в enum Curs.
 	}
-	in.close();
+	in.close(); // Закрываем файл.
 }

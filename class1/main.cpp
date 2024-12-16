@@ -68,7 +68,7 @@ int main() {
 	//динамическое создание объектов
 	Students* second = new Students("John Smit", 228, 17, Curs::first);
 	cout << second->to_string();
-	delete second;
+	delete second; // Освобождение памяти
 
 	//массив из объектов
 	const int n = 2;
@@ -94,7 +94,7 @@ int main() {
 	for (int i = 0; i < n; i++) {
 		cout << arr2[i].to_string();
 	}
-	delete[]arr2;
+	delete[]arr2;// Освобождение памяти
 	arr2 = nullptr;
 
 	//массив из указателей
@@ -104,8 +104,10 @@ int main() {
 		cout << arr3[i]->to_string();
 	}
 	for (int i = 0; i < n; i++) {
-		delete arr3[i];
+		delete arr3[i];// Освобождение памяти
 	}
+	delete[] arr3; // Освобождение памяти
+	arr3 = nullptr;
 
 	//работа с файлом
 	Students b("John", 523, 19, Curs::first);
